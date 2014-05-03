@@ -12,6 +12,16 @@
     <h1>In 565</h1>
     <input id="fsf" type="text" name="fsf" />
     <script>
+    
+    // Thanks to Pointy @ Stackoverflow:
+    // http://stackoverflow.com/questions/10073699/pad-a-number-with-leading-zeros-in-javascript
+    function pad(n, width, z) {
+      z = z || '0';
+      n = n + '';
+      return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+    }
+    
+    
       $(document).ready(function () {
         $("#rgb").on("keyup", function () {
           var rgbval = $("#rgb").val();
@@ -60,7 +70,7 @@
           $("#b").val(b);
           
           // Convert back to hex, output.
-          $("#rgb").val(r.toString(16) + g.toString(16) + b.toString(16));
+          $("#rgb").val(pad(r.toString(16), 2, 0) + pad(g.toString(16), 2, 0) + pad(b.toString(16), 2, 0));
         });
       });
     </script>
