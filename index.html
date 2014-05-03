@@ -1,6 +1,17 @@
 <html>
   <head>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <style>
+      h1 {
+        background: white;
+        color: #DCDCDC;
+      }
+      
+      input {
+        background: white;
+        color: black;
+      }
+    </style>
   </head>
   <body>
     <h1>In Hex</h1>
@@ -70,8 +81,30 @@
           $("#b").val(b);
           
           // Convert back to hex, output.
-          $("#rgb").val(pad(r.toString(16), 2, 0) + pad(g.toString(16), 2, 0) + pad(b.toString(16), 2, 0));
+          $("#rgb").val((pad(r.toString(16), 2, 0) + pad(g.toString(16), 2, 0) + pad(b.toString(16), 2, 0)).toUpperCase());
         });
+        
+        $("#r, #g, #b").on("keyup", function () {
+          var r = parseInt($("#r"), 10);
+          var g = parseInt($("#g"), 10);
+          var b = parseInt($("#b"), 10);
+          
+          // Update the hex output straight away...
+          $("#rgb").val((pad(r.toString(16), 2, 0) + pad(g.toString(16), 2, 0) + pad(b.toString(16), 2, 0)).toUpperCase());
+          
+          // Strip LSBs off until we hit 565!
+          r = r >> 3;
+          g = g >> 2;
+          b = b >> 3;
+          
+          // Arrange and slot them together in order
+          r = r << 11;
+          g = g << 5;
+          var fsf = r | g | b;
+          
+          // Convert back to hex, output.
+          $("#fsf").val(fsf.toString(16).toUpperCase());
+        })
       });
     </script>
   </body>
