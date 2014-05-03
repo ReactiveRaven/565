@@ -92,9 +92,9 @@
         });
         
         $("#r, #g, #b").on("keyup", function () {
-          var r = parseInt($("#r"), 10);
-          var g = parseInt($("#g"), 10);
-          var b = parseInt($("#b"), 10);
+          var r = parseInt($("#r").val(), 10);
+          var g = parseInt($("#g").val(), 10);
+          var b = parseInt($("#b").val(), 10);
           
           // Update the hex output straight away...
           $("#rgb").val((pad(r.toString(16), 2, 0) + pad(g.toString(16), 2, 0) + pad(b.toString(16), 2, 0)).toUpperCase());
