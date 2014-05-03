@@ -3,8 +3,12 @@
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
   </head>
   <body>
-    <h1>In RGB Hex</h1>
+    <h1>In Hex</h1>
     <input id="rgb" type="text" name="rgb" />
+    <h1>In RGB</h1>
+    R<input id="r" type="text" />
+    G<input id="g" type="text" />
+    B<input id="b" type="text" />
     <h1>In 565</h1>
     <input id="fsf" type="text" name="fsf" />
     <script>
@@ -15,6 +19,10 @@
           var r = parseInt(rgbval.substr(0,2), 16);
           var g = parseInt(rgbval.substr(2,2), 16);
           var b = parseInt(rgbval.substr(4,2), 16);
+          
+          $("#r").val(r);
+          $("#g").val(g);
+          $("#b").val(b);
           
           // Strip LSBs off until we hit 565!
           r = r >> 3;
@@ -46,6 +54,10 @@
           r = r << 3;
           g = g << 2;
           b = b << 3;
+          
+          $("#r").val(r);
+          $("#g").val(g);
+          $("#b").val(b);
           
           // Convert back to hex, output.
           $("#rgb").val(r.toString(16) + g.toString(16) + b.toString(16));
