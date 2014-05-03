@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  </head>
+  <body>
+    <h1>In RGB Hex</h1>
+    <input id="rgb" type="text" name="rgb" />
+    <h1>In 565</h1>
+    <input id="fsf type="text" name="fsf" />
+    <script>
+      $(document).ready(function () {
+        $("#rgb").on("keyup", function () {
+          var rgbval = $("#rgb").val();
+          // Chop 'em out, convert to integers, 0-255.
+          var r = parseInt(rgbval.substr(0,2), 16);
+          var g = parseInt(rgbval.substr(2,2), 16);
+          var b = parseInt(rgbval.substr(4,2), 16);
+          
+          // Strip LSBs off until we hit 565!
+          r = r >> 3;
+          g = g >> 2;
+          b = b >> 3;
+          
+          // Arrange and slot them together in order
+          r = r << 11;
+          g = g << 5;
+          var fsf = r | g | b;
+          
+          // Convert back to hex, output.
+          $("#fsf").val(fsf.toString(16));
+          
+        });
+      });
+    </script>
+  </body>
+</html>
