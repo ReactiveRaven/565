@@ -27,8 +27,28 @@
           var fsf = r | g | b;
           
           // Convert back to hex, output.
-          $("#fsf").val(fsf.toString(16));
+          $("#fsf").val(fsf.toString(16).toUpperCase());
           
+        });
+        
+        $("#fsf").on("keyup", function () {
+          var fsfval = $("#fsf").val();
+          
+          // Convert back to dec
+          fsfval = parseInt(fsfval, 16);
+          
+          // Chop out
+          var r = fsfval >> 11;
+          var g = (fsfval >> 5) & (1 + 2 + 4 + 8 + 16 + 32);
+          var b = fsfval & (1 + 2 + 4 + 8 + 16);
+          
+          // Inflate back to 8-bits
+          r = r << 3;
+          g = g << 2;
+          b = b << 3;
+          
+          // Convert back to hex, output.
+          $("#rgb").val(r.toString(16) + g.toString(16) + b.toString(16));
         });
       });
     </script>
