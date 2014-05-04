@@ -15,7 +15,7 @@
   </head>
   <body>
     <p>
-      Enter the value you have into any of the boxes. The others update as you type. Numbers and letters only please.
+      Enter the value you have into any of the boxes. Press enter to update the other boxes. Numbers and letters only please.
     </p>
     <h1>In Hex</h1>
     <input id="rgb" type="text" name="rgb" />
@@ -119,44 +119,48 @@ function hslToRgb(h, s, l) {
     
     
       $(document).ready(function () {
-        $("#rgb").on("keyup", function () {
-          var rgbval = $("#rgb").val();
-          // Chop 'em out, convert to integers, 0-255.
-          var r = parseInt(rgbval.substr(0,2), 16);
-          var g = parseInt(rgbval.substr(2,2), 16);
-          var b = parseInt(rgbval.substr(4,2), 16);
-          
-          $("#r").val(r);
-          $("#g").val(g);
-          $("#b").val(b);
-          
-          $("#r").trigger("keyup");
+        $("#rgb").on("keyup", function (event) {
+          if (event.keyCode === 13) {
+            var rgbval = $("#rgb").val();
+            // Chop 'em out, convert to integers, 0-255.
+            var r = parseInt(rgbval.substr(0,2), 16);
+            var g = parseInt(rgbval.substr(2,2), 16);
+            var b = parseInt(rgbval.substr(4,2), 16);
+            
+            $("#r").val(r);
+            $("#g").val(g);
+            $("#b").val(b);
+            
+            $("#r").trigger("keyup");
+          }
         });
         
-        $("#fsf").on("keyup", function () {
-          var fsfval = $("#fsf").val();
-          
-          // Convert back to dec
-          fsfval = parseInt(fsfval, 16);
-          
-          // Chop out
-          var r = fsfval >> 11;
-          var g = (fsfval >> 5) & (1 + 2 + 4 + 8 + 16 + 32);
-          var b = fsfval & (1 + 2 + 4 + 8 + 16);
-          
-          // Inflate back to 8-bits
-          r = r << 3;
-          g = g << 2;
-          b = b << 3;
-          
-          $("#r").val(r);
-          $("#g").val(g);
-          $("#b").val(b);
-          
-          $("#r").trigger("keyup");
+        $("#fsf").on("keyup", function (event) {
+          if (event.keyCode === 13) {
+            var fsfval = $("#fsf").val();
+            
+            // Convert back to dec
+            fsfval = parseInt(fsfval, 16);
+            
+            // Chop out
+            var r = fsfval >> 11;
+            var g = (fsfval >> 5) & (1 + 2 + 4 + 8 + 16 + 32);
+            var b = fsfval & (1 + 2 + 4 + 8 + 16);
+            
+            // Inflate back to 8-bits
+            r = r << 3;
+            g = g << 2;
+            b = b << 3;
+            
+            $("#r").val(r);
+            $("#g").val(g);
+            $("#b").val(b);
+            
+            $("#r").trigger("keyup");
+          }
         });
         
-        $("#r, #g, #b").on("keyup", function () {
+        $("#r, #g, #b").on("keyup", function (event) {
           var r = clamp(parseInt($("#r").val(), 10), 0, 255);
           var g = clamp(parseInt($("#g").val(), 10), 0, 255);
           var b = clamp(parseInt($("#b").val(), 10), 0, 255);
@@ -186,17 +190,19 @@ function hslToRgb(h, s, l) {
           updateBg();
         });
         
-        $("#h, #s, #l").on("keyup", function () {
-          var h = parseFloat($("#h").val());
-          var s = parseFloat($("#s").val());
-          var l = parseFloat($("#l").val());
-          
-          var rgb = hslToRgb(h / 360, s / 100, l / 100);
-          $("#r").val(rgb[0]);
-          $("#g").val(rgb[1]);
-          $("#b").val(rgb[2]);
-          
-          $("#r").trigger("keyup");
+        $("#h, #s, #l").on("keyup", function (event) {
+          if (event.keyCode === 13) {
+            var h = parseFloat($("#h").val());
+            var s = parseFloat($("#s").val());
+            var l = parseFloat($("#l").val());
+            
+            var rgb = hslToRgb(h / 360, s / 100, l / 100);
+            $("#r").val(rgb[0]);
+            $("#g").val(rgb[1]);
+            $("#b").val(rgb[2]);
+            
+            $("#r").trigger("keyup");
+          }
         });
       });
     </script>
