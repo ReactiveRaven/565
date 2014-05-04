@@ -20,13 +20,13 @@
     <h1>In Hex</h1>
     <input id="rgb" type="text" name="rgb" />
     <h1>In RGB</h1>
-    R<input id="r" type="text" />
-    G<input id="g" type="text" />
-    B<input id="b" type="text" />
+    R<input id="r" type="number" />
+    G<input id="g" type="number" />
+    B<input id="b" type="number" />
     <h1>In HSL</h1>
-    H<input id="h" type="text" />
-    S<input id="s" type="text" />
-    L<input id="l" type="text" />
+    H<input id="h" type="number" />
+    S<input id="s" type="number" />
+    L<input id="l" type="number" />
     <h1>In 565</h1>
     <input id="fsf" type="text" name="fsf" />
     <script>
@@ -166,9 +166,9 @@ function hslToRgb(h, s, l) {
           
           // Cheat on HSL.
           var hsl = rgbToHsl(r, g, b);
-          $("#h").val(hsl[0]);
-          $("#s").val(hsl[1]);
-          $("#l").val(hsl[2]);
+          $("#h").val(hsl[0] * 360 | 0);
+          $("#s").val(hsl[1] * 100 | 0);
+          $("#l").val(hsl[2] * 100 | 0);
           
           // Strip LSBs off until we hit 565!
           r = r >> 3;
@@ -191,7 +191,7 @@ function hslToRgb(h, s, l) {
           var s = parseFloat($("#s").val());
           var l = parseFloat($("#l").val());
           
-          var rgb = hslToRgb(h, s, l);
+          var rgb = hslToRgb(h / 360, s / 100, l / 100);
           $("#r").val(rgb[0]);
           $("#g").val(rgb[1]);
           $("#b").val(rgb[2]);
