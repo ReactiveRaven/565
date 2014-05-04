@@ -164,6 +164,12 @@ function hslToRgb(h, s, l) {
           // Update the hex output straight away...
           $("#rgb").val((pad(r.toString(16), 2, 0) + pad(g.toString(16), 2, 0) + pad(b.toString(16), 2, 0)).toUpperCase());
           
+          // Cheat on HSL.
+          var hsl = rgbToHsl(r, g, b);
+          $("#h").val(hsl[0]);
+          $("#s").val(hsl[1]);
+          $("#l").val(hsl[2]);
+          
           // Strip LSBs off until we hit 565!
           r = r >> 3;
           g = g >> 2;
@@ -177,11 +183,6 @@ function hslToRgb(h, s, l) {
           // Convert back to hex, output.
           $("#fsf").val(fsf.toString(16).toUpperCase());
           
-          // Cheat on HSL.
-          var hsl = rgbToHsl(r, g, b);
-          $("#h").val(hsl[0]);
-          $("#s").val(hsl[1]);
-          $("#l").val(hsl[2]);
           updateBg();
         });
         
