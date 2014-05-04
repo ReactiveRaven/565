@@ -187,9 +187,9 @@ function hslToRgb(h, s, l) {
         });
         
         $("#h, #s, #l").on("keyup", function () {
-          var h = parseInt($("#h").val(), 10);
-          var s = parseInt($("#s").val(), 10);
-          var l = parseInt($("#l").val(), 10);
+          var h = parseFloat($("#h").val());
+          var s = parseFloat($("#s").val());
+          var l = parseFloat($("#l").val());
           
           var rgb = hslToRgb(h, s, l);
           $("#r").val(rgb[0]);
